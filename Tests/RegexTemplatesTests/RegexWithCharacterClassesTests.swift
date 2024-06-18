@@ -26,5 +26,12 @@ final class RegexTemplatesTests: XCTestCase {
             "123 helloello!"
         )
     }
+    
+    func testRegexTemplatesCodepoints() throws {
+        XCTAssertEqual(
+            #replaceWithTemplate(in: "a\u{0307}", replace: /([a-z])\x{0307}/.matchingSemantics(.unicodeScalar), withTemplate: "$1\u{0300}"),
+            "à"
+        )
+    }
      
 }
