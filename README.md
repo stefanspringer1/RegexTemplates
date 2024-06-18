@@ -1,6 +1,6 @@
 # RegexTemplates
 
-This package makes it possible to efficiently replace an regular expression with a template containing `$1`, `S2`, etc.
+This package makes it possible to efficiently replace a regular expression with a template containing `$1`, `S2`, etc.
 
 Example:
 
