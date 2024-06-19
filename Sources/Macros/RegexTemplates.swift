@@ -9,15 +9,9 @@ extension String: Error {}
 public struct ReplaceWithTemplate: ExpressionMacro {
     
     public static func resolvedForm(forTemplate template: String) ->  String {
-        var template = template
-        autoreleasepool {
-            let numberedGroupRegex = #/\$([0-9]+)/#
-                .asciiOnlyCharacterClasses()
-            template = template.replacing(numberedGroupRegex) { match in
-                "\\(match.output.\(Int(match.output.1)!))"
-            }
+        return template.replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
+            "\\(match.output.\(Int(match.output.1)!))"
         }
-        return template
     }
     
     public static func expansion<Node: FreestandingMacroExpansionSyntax,
