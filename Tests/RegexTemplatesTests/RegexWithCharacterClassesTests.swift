@@ -1,7 +1,7 @@
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
 import XCTest
-import Macros
+import RegexTemplatesMacros
 import RegexTemplates
 
 final class RegexTemplatesTests: XCTestCase {

@@ -16,4 +16,4 @@ import Foundation
 /// // prints "à"
 /// ```
 @freestanding(expression)
-public macro replaceWithTemplate(in subject: String, replace regex: any RegexComponent, withTemplate template: String) -> String = #externalMacro(module: "Macros", type: "ReplaceWithTemplate")
+public macro replaceWithTemplate(in subject: String, replace regex: any RegexComponent, withTemplate template: String) -> String = #externalMacro(module: "RegexTemplatesMacros", type: "ReplaceWithTemplate")
