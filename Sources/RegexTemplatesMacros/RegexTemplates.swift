@@ -42,9 +42,9 @@ public struct ReplaceWithTemplate: ExpressionMacro {
         }
         
         guard
-            let segments2 = templateArgument.as(StringLiteralExprSyntax.self)?.segments,
-            segments2.count == 1,
-            case .stringSegment(let template)? = segments2.first
+            let templateArgumentSegments = templateArgument.as(StringLiteralExprSyntax.self)?.segments,
+            templateArgumentSegments.count == 1,
+            case .stringSegment(let template)? = templateArgumentSegments.first
         else {
             throw "macro requires static string literal as third argument"
         }
