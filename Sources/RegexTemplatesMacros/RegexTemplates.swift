@@ -4,7 +4,21 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 import Foundation
 
-extension String: Error {}
+/// An error with a description.
+///
+/// When printing such an error, its descrition is printed.
+struct RegexTemplateError: LocalizedError, CustomStringConvertible {
+
+    private let message: String
+
+    public init(_ message: String) {
+        self.message = message
+    }
+    
+    public var description: String { message }
+    
+    public var errorDescription: String? { message }
+}
 
 public struct ReplaceWithTemplate: ExpressionMacro {
     
@@ -21,7 +35,7 @@ public struct ReplaceWithTemplate: ExpressionMacro {
         guard
             node.argumentList.count == 3
         else {
-            throw "need three arguments"
+            throw RegexTemplateError("need three arguments")
         }
         
         let argumentList = Array(node.argumentList)
@@ -32,13 +46,13 @@ public struct ReplaceWithTemplate: ExpressionMacro {
         guard
             let subject = subjectArgument.as(ExprSyntax.self)
         else {
-            throw "macro requires expression as first argument"
+            throw RegexTemplateError("macro requires expression as first argument")
         }
         
         guard
             let regex = regexArgument.as(ExprSyntax.self)
         else {
-            throw "macro requires expression as second argument"
+            throw RegexTemplateError("macro requires expression as second argument")
         }
         
         guard
@@ -46,7 +60,7 @@ public struct ReplaceWithTemplate: ExpressionMacro {
             templateArgumentSegments.count == 1,
             case .stringSegment(let template)? = templateArgumentSegments.first
         else {
-            throw "macro requires static string literal as third argument"
+            throw RegexTemplateError("macro requires static string literal as third argument")
         }
         
         let expr: ExprSyntax = """

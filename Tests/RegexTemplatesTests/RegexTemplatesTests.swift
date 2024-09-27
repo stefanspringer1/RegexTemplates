@@ -13,14 +13,22 @@ final class RegexTemplatesTests: XCTestCase {
             )
     }
     
-    func testRegexTemplatesWithOneGroup() throws {
+    // does not compile:
+//    func testRegexTemplatesWithOneGroups() throws {
+//        XCTAssertEqual(
+//            #replaceWithTemplate(in: "123 hello!", replace: /[a-z]/, withTemplate: "$0 $0"),
+//            "123 hello hello!"
+//        )
+//    }
+    
+    func testRegexTemplatesWithTwoGroups() throws {
         XCTAssertEqual(
             #replaceWithTemplate(in: "123 hello!", replace: /([a-z]+)/, withTemplate: "$1 $1"),
             "123 hello hello!"
         )
     }
     
-    func testRegexTemplatesWithTwoGroups() throws {
+    func testRegexTemplatesWithThreeGroups() throws {
         XCTAssertEqual(
             #replaceWithTemplate(in: "123 hello!", replace: /([a-z])([a-z]+)/, withTemplate: "$1$2$2"),
             "123 helloello!"
