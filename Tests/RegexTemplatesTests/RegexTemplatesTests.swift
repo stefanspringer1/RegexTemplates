@@ -5,6 +5,13 @@ import RegexTemplatesMacros
 import RegexTemplates
 
 final class RegexTemplatesTests: XCTestCase {
+
+    func testTemplateResolving() throws {
+        XCTAssertEqual(
+            ReplaceWithTemplateTools.resolvedForm(forTemplate: "#1: $1 #1 (again): $1 #2: $2"),
+            #"#1: \(match.output.1) #1 (again): \(match.output.1) #2: \(match.output.2)"#
+        )
+    }
     
     // does not compile:
 //    func testRegexTemplatesWithOneGroups() throws {

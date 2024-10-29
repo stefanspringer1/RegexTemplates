@@ -20,10 +20,14 @@ struct RegexTemplateError: LocalizedError, CustomStringConvertible {
     public var errorDescription: String? { message }
 }
 
-fileprivate func resolvedForm(forTemplate template: String) ->  String {
-    return template.replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
-        "\\(match.output.\(Int(match.output.1)!))"
+public struct ReplaceWithTemplateTools {
+    
+    static public func resolvedForm(forTemplate template: String) ->  String {
+        return template.replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
+            "\\(match.output.\(Int(match.output.1)!))"
+        }
     }
+    
 }
 
 fileprivate func specifiedExpansion<Node: FreestandingMacroExpansionSyntax, Context: MacroExpansionContext>(of node: Node, in context: Context, functionName: String) throws -> ExprSyntax {
@@ -61,7 +65,7 @@ fileprivate func specifiedExpansion<Node: FreestandingMacroExpansionSyntax, Cont
   
   let expr: ExprSyntax = """
   \(raw: subject).\(raw: functionName)(\(raw: regex)) { match in
-      \"\(raw: resolvedForm(forTemplate: "\(template)"))\"
+      \"\(raw: ReplaceWithTemplateTools.resolvedForm(forTemplate: "\(template)"))\"
   }
   """
   return ExprSyntax(expr)
