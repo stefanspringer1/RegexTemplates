@@ -25,7 +25,7 @@ final class RegexTemplatesTests: XCTestCase {
         
         // converting to a new text:
         XCTAssertEqual(
-            #replacingWithTemplate(in: "123 hello!", replace: /([a-z]+)/, withTemplate: "$1 $1"),
+            #replacingWithTemplate(in: "123 hello!", replacing: /([a-z]+)/, withTemplate: "$1 $1"),
             "123 hello hello!"
         )
         
@@ -40,7 +40,7 @@ final class RegexTemplatesTests: XCTestCase {
         
         // converting to a new text:
         XCTAssertEqual(
-            #replacingWithTemplate(in: "123 hello!", replace: /([a-z])([a-z]+)/, withTemplate: "$1$2$2"),
+            #replacingWithTemplate(in: "123 hello!", replacing: /([a-z])([a-z]+)/, withTemplate: "$1$2$2"),
             "123 helloello!"
         )
         
@@ -55,7 +55,7 @@ final class RegexTemplatesTests: XCTestCase {
         
         // converting to a new text:
         XCTAssertEqual(
-            #replacingWithTemplate(in: "a\u{0307}", replace: /([a-z])\x{0307}/.matchingSemantics(.unicodeScalar), withTemplate: "$1\u{0300}"),
+            #replacingWithTemplate(in: "a\u{0307}", replacing: /([a-z])\x{0307}/.matchingSemantics(.unicodeScalar), withTemplate: "$1\u{0300}"),
             "à"
         )
         

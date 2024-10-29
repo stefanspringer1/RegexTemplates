@@ -16,7 +16,7 @@ import Foundation
 /// // prints "à"
 /// ```
 @freestanding(expression)
-public macro replacingWithTemplate(in subject: String, replace regex: any RegexComponent, withTemplate template: String) -> String = #externalMacro(module: "RegexTemplatesMacros", type: "ReplacingWithTemplate")
+public macro replacingWithTemplate(in subject: String, replacing regex: any RegexComponent, withTemplate template: String) -> String = #externalMacro(module: "RegexTemplatesMacros", type: "ReplacingWithTemplate")
 
 /// This macro makes it possible to efficiently replace a regular expression with a template containing `$1`, `S2`, etc.
 ///
