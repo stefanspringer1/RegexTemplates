@@ -23,7 +23,7 @@ struct RegexTemplateError: LocalizedError, CustomStringConvertible {
 public struct ReplaceWithTemplateTools {
     
     static public func resolvedForm(forTemplate template: String) ->  String {
-        return template.replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
+        return template.replacingOccurrences(of: #"""#, with: #"\""#).replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
             "\\(match.output.\(Int(match.output.1)!))"
         }
     }
@@ -65,7 +65,7 @@ fileprivate func specifiedExpansion<Node: FreestandingMacroExpansionSyntax, Cont
   
   let expr: ExprSyntax = """
   \(raw: subject).\(raw: functionName)(\(raw: regex)) { match in
-      \"\(raw: ReplaceWithTemplateTools.resolvedForm(forTemplate: "\(template)"))\"
+     \"\(raw: ReplaceWithTemplateTools.resolvedForm(forTemplate: "\(template)"))\"
   }
   """
   return ExprSyntax(expr)

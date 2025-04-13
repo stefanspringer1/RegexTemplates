@@ -4,8 +4,14 @@ import XCTest
 import RegexTemplatesMacros
 import RegexTemplates
 
-final class RegexTemplatesTests: XCTestCase {
+extension String {
+    var pretty: String {
+        #replacingWithTemplate(in: self, replacing: /([a-z])([A-Z])(?=[a-z])/, withTemplate: "$1$2")
+    }
+}
 
+final class RegexTemplatesTests: XCTestCase {
+    
     func testTemplateResolving() throws {
         XCTAssertEqual(
             ReplaceWithTemplateTools.resolvedForm(forTemplate: "#1: $1 #1 (again): $1 #2: $2"),
@@ -16,7 +22,7 @@ final class RegexTemplatesTests: XCTestCase {
     // does not compile:
 //    func testRegexTemplatesWithOneGroups() throws {
 //        XCTAssertEqual(
-//            #replacingWithTemplate(in: "123 hello!", replace: /[a-z]/, withTemplate: "$0 $0"),
+//            #replacingWithTemplate(in: "123 hello!", replacing: /[a-z]/, withTemplate: "$0 $0"),
 //            "123 hello hello!"
 //        )
 //    }
@@ -65,5 +71,11 @@ final class RegexTemplatesTests: XCTestCase {
         XCTAssertEqual(changingText, "à")
         
     }
-     
+    
+    func testWithQuotes() {
+        var text = #"<form name="myName" id="myID" style="display:inline">"#
+        #replaceWithTemplate(in: text, replace: /name="([^"]*)" id="([^"]*)"/, withTemplate: #"id="$2" name="$1""#)
+        XCTAssertEqual(text,#"<form id="myID" name="myName" style="display:inline">"#)
+    }
+    
 }
