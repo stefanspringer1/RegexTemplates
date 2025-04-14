@@ -93,11 +93,4 @@ final class RegexTemplatesTests: XCTestCase {
         XCTAssertEqual(text,"1Ä2")
     }
     
-    func testXXX() throws {
-//        print(#replacingWithTemplate(in: "1newline2", replacing: /(\d)newline(\d)/, withTemplate: #"$1\n$2"#)) // prints "1" and "2" with newline in between
-//        print(#replacingWithTemplate(in: "1auml2", replacing: /(\d)auml(\d)/, withTemplate: #"$1\u{C4}$2"#)) // prints "1Ä2"
-        print(#replacingWithTemplate(in: "1backslash2", replacing: /(\d)backslash(\d)/, withTemplate: #"$1\$2"#)) // prints "1\(match.output.2)" without any compilation error!
-        //print(#replacingWithTemplate(in: "1quote2", replacing: /(\d)quote(\d)/, withTemplate: #"$1"$2"#)) // prints "1" and "2" with newline in between
-    }
-    
 }
