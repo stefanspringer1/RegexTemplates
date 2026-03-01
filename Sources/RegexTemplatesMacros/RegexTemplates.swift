@@ -24,7 +24,7 @@ public struct ReplaceWithTemplateTools {
     
     static public func resolvedForm(forTemplate template: String) ->  String {
         return template.replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
-            "\\(match.output.\(Int(match.output.1)!))"
+            "\\((match.output.\(Int(match.output.1)!) as Substring?) ?? \"\")"
         }
     }
     
@@ -87,4 +87,10 @@ public struct ReplaceWithTemplate: ExpressionMacro {
 
     }
     
+}
+
+infix operator ???
+
+public func ???<T>(inLHS: T?, inRHS: T) -> T {
+    inLHS ?? inRHS
 }

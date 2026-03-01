@@ -15,17 +15,9 @@ final class RegexTemplatesTests: XCTestCase {
     func testTemplateResolving() throws {
         XCTAssertEqual(
             ReplaceWithTemplateTools.resolvedForm(forTemplate: "#1: $1 #1 (again): $1 #2: $2"),
-            #"#1: \(match.output.1) #1 (again): \(match.output.1) #2: \(match.output.2)"#
+            #"#1: \((match.output.1 as Substring?) ?? "") #1 (again): \((match.output.1 as Substring?) ?? "") #2: \((match.output.2 as Substring?) ?? "")"#
         )
     }
-    
-    // does not compile:
-//    func testRegexTemplatesWithOneGroups() throws {
-//        XCTAssertEqual(
-//            #replacingWithTemplate(in: "123 hello!", replacing: /[a-z]/, withTemplate: "$0 $0"),
-//            "123 hello hello!"
-//        )
-//    }
     
     func testRegexTemplatesWithTwoGroups() throws {
         
@@ -93,4 +85,15 @@ final class RegexTemplatesTests: XCTestCase {
         XCTAssertEqual(text,"1Ä2")
     }
     
+    func testOptionals1() {
+        var text = "1auml2"
+        #replaceWithTemplate(in: text, replace: /(\d)auml(\d)?/, withTemplate: #"$1\u{C4}$2"#)
+        XCTAssertEqual(text,"1Ä2")
+    }
+    
+    func testOptionals2() {
+        var text = "1auml"
+        #replaceWithTemplate(in: text, replace: /(\d)auml(\d)?/, withTemplate: #"$1\u{C4}$2"#)
+        XCTAssertEqual(text,"1Ä")
+    }
 }
