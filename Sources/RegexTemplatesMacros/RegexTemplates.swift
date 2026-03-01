@@ -24,7 +24,7 @@ public struct ReplaceWithTemplateTools {
     
     static public func resolvedForm(forTemplate template: String) ->  String {
         return template.replacing(/\$([0-9]+)/.asciiOnlyCharacterClasses()) { match in
-            "\\((match.output.\(Int(match.output.1)!) as Substring?) ?? \"\")"
+            "\\(match.output.\(Int(match.output.1)!) as Substring? ?? \"\")"
         }
     }
     
